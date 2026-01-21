@@ -20,9 +20,6 @@ LinkedList:
         Structure: Combines circular and doubly linked List features. Each node has pointers to both the next 
                    and previous nodes, and the last node points back to the first.
         Traversal: Both directions and continous looping.
-
-
-
 */
 public class Linkedlist {
     

@@ -116,8 +116,49 @@ Note:  we cannot create static method as abstract method.
             1.Regular or normal interface
             2.Marker interface
             3.Functional interface
+                Functional interface is an interface which contains only one abstract method.
+                It may contain any number of default methods and static methods.
+                It is introduced in java 8 version.
+                It is also known as Single Abstract Method(SAM) interface.
+                It is used to provide the implementation logic using lambda expression.
         
+        What is functional programming?
+            A programming paradigm that treats computation as the evaluation of mathematical functions and
+            avoids changing state and mutable data.
+            Java 8 introduced functional programming features to make java:
+                Shorter
+                Clearer
+                faster
+                modern
 
+            Predefined functional interfaces:
+                Runnable interface -> run() used in multithreading
+                Comparable interface -> compareTo() used in Collection sorting
+                Comparator interface -> compare(obj o1, obj o2) used in Collection sorting
+
+            Anonymous class:
+                A class without a name is called anonymous class.
+                It is used to provide the implementation logic of abstract method of abstract class or interface
+                at the time of object creation.
+                It is also known as local inner class.
+                    to override a method of an existing class
+                    to implement an interface
+
+            Lambda expression:
+                A lambda expression is an anonymous function that provides implementation of a functional interface.
+                A lambda expression is a short way to write a method without name, without class, and without boilerplate code.
+
+            Syntax of lambda expression:
+                (parameters) -> expression
+                OR
+                (parameters) -> {multiple statments}
+
+                Example:
+                    (int a, int b) -> {return a+b;}
+
+            
+
+                
         
 
 */
