@@ -1,114 +1,142 @@
 package Multithreading;
 /*
-Multithreading:
-    Multithreading is a Java is a process of executing multiple threads simultaneously.
-    A thread is a lightweight subprocess, the smallest unit of processing.
-    Threads are independent, if there occurs exception in one thread, it doesn't affect other threads.
-    Multithreading and multiprocessing are used to achieve multitasking.
-    But we use multithreading than multiprocessing because threads share a common memory area.
-    They dont allocate separate memory area, so it is more efficient and context switching between threads is faster than processes.
-    Java multithreading is mostly used in games, animations etc.
+    Multithreading : 
+	    Multithreading in java is a process of executing multiple threads simultaneously.
+	    Thread is basically a lightweight sub-process, a smallest unit of processing.
+	    Threads are independent, if there occurs exception in one thread, it doesn't affect other threads. 
+	    Multiprocessing and multithreading, both are used to achieve multitasking.
+	    But we use multithreading than multiprocessing because threads share a common memory area. They don't 
+	    allocate separate memory area so saves memory, and context-switching between the threads takes less time
+	    than process.
+	    Java Multithreading is mostly used in games, animation etc.
+	
+    Advantage of Java Multithreading
+        1) It doesn't block the user because threads are independent and you can perform multiple operations at same time.
+        2) You can perform many operations together so it saves time.
+        3) Threads are independent so it doesn't affect other threads if exception occur in a single thread.
+	
+    Multitasking :
+	    Multitasking is a process of executing multiple tasks simultaneously. We use multitasking to utilize the CPU. 
+	    Multitasking can be achieved by two ways:
+		    Process-based Multitasking(Multiprocessing)
+		    Thread-based Multitasking(Multithreading)
+		
+    Process-based Multitasking (Multiprocessing) :
+	    - Each process have its own address in memory i.e. each process allocates separate memory area.
+	    - Process is heavyweight.
+	    - Cost of communication between the process is high.
+	    - Switching from one process to another require some time for saving and loading registers, memory maps, updating 
+	    lists etc.
+	
+    Thread-based Multitasking (Multithreading) :
+	    - Threads share the same address space.
+	    - Thread is lightweight.
+	    - Cost of communication between the thread is low.
+	
+    Life cycle of a Thread (Thread States) :	
+	    1.New
+	    2.Runnable
+	    3.Running
+	    4.Non-Runnable (Blocked)
+	    5.Terminated
+	
+	    The life cycle of the thread in java is controlled by JVM.
 
-    Advantages of java multithreading:
-    1. Improved performance
-    2. Simplicity
-    3. Better resource utilization
-    4. Enhanced responsiveness
-    5. Improved scalability
+    1) New : 
+	    The thread is in new state if you create an instance of Thread class but before the invocation of start() method.
+	
+    2) Runnable :
+	    The thread is in runnable state after invocation of start() method, but the thread scheduler has not selected 
+	    it to be the running thread.
+	
+    3) Running :
+	    The thread is in running state if the thread scheduler has selected it.
+	
+    4) Non-Runnable (Blocked) :
+	    This is the state when the thread is still alive, but is currently not eligible to run.
+	
+    5) Terminated :
+	    A thread is in terminated or dead state when its run() method exits.
+	
+---------------------------------------------------------------------------------------------------	
+    How to create thread ? 
+	    1.By extending Thread class
+	    2.By implementing Runnable interface.
+	
+    Thread class: 
+	    Thread class provide constructors and methods to create and perform operations on a thread.
+	    Thread class extends Object class and implements Runnable interface.
+	
+    Commonly used Constructors of Thread class: 
+	    Thread()
+	    Thread(String name)
+	    Thread(Runnable r)
+	    Thread(Runnable r,String name)
+	
+    Commonly used methods of Thread class:
+    1. public void run(): is used to perform action for a thread.
+    2. public void start(): starts the execution of the thread.JVM calls the run() method on the thread.
+    3. public void sleep(long miliseconds): Causes the currently executing thread to sleep (temporarily cease execution) for 
+	    the specified number of milliseconds.
+    4. public void join(): waits for a thread to die.
+    5. public void join(long miliseconds): waits for a thread to die for the specified miliseconds.
+    6. public int getPriority(): returns the priority of the thread.
+    7. public int setPriority(int priority): changes the priority of the thread.
+    8. public String getName(): returns the name of the thread.
+    9. public void setName(String name): changes the name of the thread.
+    10. public Thread currentThread(): returns the reference of currently executing thread.
+    11. public int getId(): returns the id of the thread.
+    12. public Thread.State getState(): returns the state of the thread.
+    13. public boolean isAlive(): tests if the thread is alive.
+    14. public void yield(): causes the currently executing thread object to temporarily pause and allow other threads to execute.
+    15. public void suspend(): is used to suspend the thread(depricated).
+    16. public void resume(): is used to resume the suspended thread(depricated).
+    17. public void stop(): is used to stop the thread(depricated).
+    18. public boolean isDaemon(): tests if the thread is a daemon thread.
+    19. public void setDaemon(boolean b): marks the thread as daemon or user thread.
+    20. public void interrupt(): interrupts the thread.
+    21. public boolean isInterrupted(): tests if the thread has been interrupted.
+    22. public static boolean interrupted(): tests if the current thread has been interrupted.	
 
-    Multitasking:
-        Multitasking is a process of executing multiple tasks simultaneously.
-        Multitasking is of two types:
-        1. Process-based multitasking (Multiprocessing)
-        2. Thread-based multitasking (Multithreading)
+-------------------------------------------------------------------------------------------------------
 
-    process-based multitasking:(Multiprocessing)
-        In process-based multitasking, each task is executed as a separate process.
-        Each process has its own memory space.
-        Context switching between processes is slower than threads.
-
-    thread-based multitasking:(Multithreading)
-        In thread-based multitasking, each task is executed as a separate thread within a process.
-        Threads share a common memory space.
-        Context switching between threads is faster than processes.
-
-    Life cycle of thread:
-        1.New
-        2.Runnable
-        3.Running
-        4.Non-Running(Blocked)
-        5.Terminated
-
-        the life cycle of the thread in java is controlled by JVM.
-
-    New:
-        The thread is in new state if you create an instance of Thread class but before the invocation of start() method.
-
-    Runnable:
-        The Thread is in runnable state after invocation of start() method, but the thread schedular has not selected
-        it to be the running thread.
-
-    Running:
-        The thread is in running state if the thread schedular has selected it.
-
-    Non-runnable:
-        This is the state when the thread is still alive, but is currently not eligible to run.
-
-    Terminated:
-        A thread is in terminated or dead state when its run() method exits.
-
-
-    How to create thread?
-        1.By extending Thread class.
-        2.By implementing Runnable interface.
-
-    Thread class:
-        Thread class provide constructor and methods to create and perform operations on thread.
-        Thread class extends Object class and implements Runnable interface.
-
-    Commonly used Constructors of Thread class:
-        Thread();
-        Thread(String name)
-        Thread(Runnable r)
-        Thread(Runnable r,String name)
-
-    Commonly used methods of thread class:
-        1.Public void run(): is used to perform action for a thread
-
-        2.public void start(): starts the execution of the thread.JVM calls the run() method on the thread.
-        3.public void sleep(long milisecond)
-        4.public void join(): waits for a thread to die.
-        5.public void join(long miliceconds): waits for a thread to die for the specified miliseconds.
-        6.public int getPriority(): return thename of the thread.
-        7.public int setPriority(int priority): changes the priority of the thread.
-        8.public String getName(); return the name of the thread.
-        9.public void setName(String name): chaneg the name of the thread.
-        10.public Thread currentThread()
-
-
-
-
-
-    Runnable interface:
+    Runnable interface: 
 	    The Runnable interface should be implemented by any class whose instances are intended to be executed by a 
 	    thread. Runnable interface have only one method named run().
 	
 	    public void run(): is used to perform action for a thread.
+	
 
+        start() method of Thread class is used to start a newly created thread. 
+    It performs following tasks:
+	    A new thread starts(with new callstack).
+	    The thread moves from New state to the Runnable state.
+	    When the thread gets a chance to execute, its target run() method will run.
+	
+    After starting a thread, it can never be started again. If you does so, an IllegalThreadStateException is thrown. 
+    In such case, thread will run once but for second time, it will throw exception.
+-------------------------------------------------------------------------------------------------------
 
-    Thread Schedular:
-        Thread schedular in java is the part of the jvm that decides which thread should run.
-        There is no guarantee that which runnable thread will be chosen to run by the thread schedular.
-        Only one thread at a time will run in a single process.
-
+    Thread Scheduler in Java :
+	    Thread scheduler in java is the part of the JVM that decides which thread should run.
+	    There is no guarantee that which runnable thread will be chosen to run by the thread scheduler.
+	    Only one thread at a time can run in a single process.
+	    The thread scheduler mainly uses preemptive or time-slicing scheduling to schedule the threads.
+	
+    Sleep method in java :
+	    The sleep() method of Thread class is used to sleep a thread for the specified amount of time.	
+	
+---------------------------------------------------------------------------------------------------
     Daemon Thread in Java :
-        A Daemon Thread is a background thread that runs to support user threads.
-        When all user (non-daemon) threads finish, the JVM automatically terminates daemon threads.
-        Daemon thread runs in background
-        JVM does not wait for daemon threads
-        setDaemon(true) must be called before start()
-        It is a low priority thread.
+	    A Daemon Thread is a background thread that runs to support user threads.
+	    When all user (non-daemon) threads finish, the JVM automatically terminates daemon threads.
+	    Daemon thread runs in background
+	    JVM does not wait for daemon threads
+	    setDaemon(true) must be called before start()
+	    It is a low priority thread.
 
+---------------------------------------------------------------------------------------------------
+	
     Java Thread Pool :
 	    Java Thread pool represents a group of worker threads that are waiting for the job and reuse many times.
 	    In case of thread pool, a group of fixed size threads are created. A thread from the thread pool is pulled
@@ -116,21 +144,67 @@ Multithreading:
 	    thread pool again.	
 	    Better performance It saves time because there is no need to create new thread.
 	    It is used in Servlet and JSP where container creates a thread pool to process the request.
+	
+---------------------------------------------------------------------------------------------------
+	
+    Synchronization in Java :
+	    Synchronization in java is the capability to control the access of multiple threads to any shared resource.
+	    Java Synchronization is better option where we want to allow only one thread to access the shared resource.
+	    The synchronization is mainly used to
+		    1.To prevent thread interference.
+		    2.To prevent consistency problem
+	
+    Concept of Lock in Java: 
+	    Synchronization is built around an internal entity known as the lock or monitor. 
+	    Every object has an lock associated with it. 
+	    By convention, a thread that needs consistent access to an object's fields has to acquire the object's 
+	    lock before accessing them, and then release the lock when it's done with them.
+	
+	
+    Java synchronized method :	
+	    If you declare any method as synchronized, it is known as synchronized method.
+	    Synchronized method is used to lock an object for any shared resource.
+	    When a thread invokes a synchronized method, it automatically acquires the lock for that object and 
+	    releases it when the thread completes its task.
+	
+    Synchronized block in java :
+	    Synchronized block can be used to perform synchronization on any specific resource of the method.
+	    Suppose you have 50 lines of code in your method, but you want to synchronize only 5 lines, you can use
+	    synchronized block.
+	    If you put all the codes of the method in the synchronized block, it will work same as the synchronized method.	
+	    Synchronized block is used to lock an object for any shared resource.
+	    Scope of synchronized block is smaller than the method.
+	
+-------------------------------------------------------------------------------------------------------
 
-        In a thread pool, we do NOT create threads directly.
-        We create a pool, and the pool creates & manages threads.
-
-        ExecutorService pool = Executors.newFixedThreadPool(3);
-        Pool created
-        3 threads are created internally
-        Threads are ready and waiting
-
-
-        In Java thread pools, execute() is needed to submit a task to the pool so that a worker thread can run it.
-        execute() sends a task to the thread pool
-        The thread pool decides WHICH thread will run it
-        You do not create or start threads manually
-
+    Deadlock in java :
+	    Deadlock is a situation in Java where two or more threads are permanently blocked, each waiting for a 
+	    lock held by another thread.
+	
+	
+    Inter-thread communication in Java :
+	    Inter-thread communication or Co-operation is all about allowing synchronized threads to communicate with 
+	    each other.
+	    Cooperation (Inter-thread communication) is a mechanism in which a thread is paused running in its critical 
+	    section and another thread is allowed to enter (or lock) in the same critical section to be executed.
+	    It is implemented by following methods of Object class:
+		    wait()
+		    notify()
+		    notifyAll()	
+	
+    wait() method :
+	    Causes current thread to release the lock and wait until either another thread invokes the notify() method 
+	    or the notifyAll() method for this object, or a specified amount of time has elapsed.
+	    The current thread must own this object's monitor, so it must be called from the synchronized method only 
+	    otherwise it will throw exception.	
+	
+    notify() method : 
+	    Wakes up a single thread that is waiting on this object's monitor.
+	    If any threads are waiting on this object, one of them is chosen to be awakened. 
+	    The choice is arbitrary and occurs at the discretion of the implementation.	
+	
+    notifyAll() method : 
+	    Wakes up all threads that are waiting on this object's monitor.
         
 
 */

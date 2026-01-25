@@ -54,7 +54,6 @@ public class priorityQueue {
 		System.out.println(pq);
 		pq.poll();
 		System.out.println(pq);
-		
 	}
 }
 

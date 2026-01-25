@@ -177,14 +177,6 @@ Framework:
                 Syntax to create Iterator object:
                     Iterator itr = collectionObject.iterator();
 
-            
-
-
-
-
-
-
-    
 */
 public class Notes {
     
